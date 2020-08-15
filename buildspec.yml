@@ -11,7 +11,7 @@ install:
 build:
     commands:
     - stackName="monolito-pipe"
-    - aws cloudformation --region us-east-1 describe-stacks --stack-name $stackName --wait --template-body file://infrastructure/ecs.yml --capabilities CAPABILITY_NAMED_IAM
+    - aws cloudformation --region us-east-1 describe-stacks --stack-name $stackName
     - publicIp=$(aws cloudformation --region us-east-1 describe-stacks)
     - bash deploy.sh us-east-1 monolito-pipe
     - echo "teste" >> elb.txt
