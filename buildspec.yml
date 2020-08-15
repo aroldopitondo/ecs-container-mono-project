@@ -1,24 +1,24 @@
 version: 0.2
- phases:
- install: 
-     runtime-versions:
-     docker: 18
-     commands: 
-     - apt-get update -y
-     - apt-get install -y jq
-     - curl -L https://npmjs.org/install.sh | sh
-     - npm -v
- build:
-     commands:
-     - stackName="monolito-pipe"
-     - aws cloudformation --region us-east-1 describe-stacks --stack-name $stackName --wait --template-body file://infrastructure/ecs.yml --capabilities CAPABILITY_NAMED_IAM
-     - publicIp=$(aws cloudformation --region us-east-1 describe-stacks)
-     - bash deploy.sh us-east-1 monolito-pipe
-     - echo "teste" >> elb.txt
- post_build:
-     commands:
-     - echo "DONE!!!!"
-     
- artifacts:
- files: 
-     - elb.txt
+phases:
+install: 
+    runtime-versions:
+    docker: 18
+    commands: 
+    - apt-get update -y
+    - apt-get install -y jq
+    - curl -L https://npmjs.org/install.sh | sh
+    - npm -v
+build:
+    commands:
+    - stackName="monolito-pipe"
+    - aws cloudformation --region us-east-1 describe-stacks --stack-name $stackName --wait --template-body file://infrastructure/ecs.yml --capabilities CAPABILITY_NAMED_IAM
+    - publicIp=$(aws cloudformation --region us-east-1 describe-stacks)
+    - bash deploy.sh us-east-1 monolito-pipe
+    - echo "teste" >> elb.txt
+post_build:
+    commands:
+    - echo "DONE!!!!"
+    
+artifacts:
+files: 
+    - elb.txt
